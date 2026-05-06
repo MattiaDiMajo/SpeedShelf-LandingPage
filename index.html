@@ -233,7 +233,6 @@
     cursor: pointer;
     transition: all 0.25s;
     color: rgba(245,245,240,0.45);
-    border: 1px solid rgba(245,245,240,0.12);
     border: 1px solid transparent;
   }
 
@@ -353,9 +352,8 @@
   .pricing-card { background: var(--black-3); border: 1px solid rgba(242,100,25,0.4); border-radius: 12px; padding: 56px 64px; max-width: 520px; width: 100%; position: relative; overflow: hidden; text-align: center; }
   .pricing-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--orange), var(--orange-bright)); }
   .pricing-badge { display: inline-block; background: rgba(242,100,25,0.15); border: 1px solid rgba(242,100,25,0.3); color: var(--orange); font-size: 11px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; padding: 5px 14px; border-radius: 100px; margin-bottom: 28px; }
-  .pricing-price { font-family: 'Bebas Neue', sans-serif; font-size: 96px; line-height: 1; color: var(--white); letter-spacing: 2px; }
-  .pricing-price sup { font-size: 40px; vertical-align: top; margin-top: 16px; display: inline-block; color: var(--orange); }
-  .pricing-period { font-size: 14px; color: var(--white-dim); margin-top: 8px; margin-bottom: 40px; }
+  .pricing-headline { font-family: 'Bebas Neue', sans-serif; font-size: 52px; line-height: 1; color: var(--orange); letter-spacing: 2px; margin-bottom: 8px; }
+  .pricing-period { font-size: 14px; color: var(--white-dim); margin-bottom: 40px; }
   .pricing-features { list-style: none; text-align: left; margin-bottom: 44px; display: flex; flex-direction: column; gap: 14px; }
   .pricing-features li { display: flex; align-items: center; gap: 14px; font-size: 15px; color: var(--white-dim); }
   .pricing-features li::before { content: '✓'; width: 22px; height: 22px; background: rgba(242,100,25,0.15); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; color: var(--orange); flex-shrink: 0; text-align: center; line-height: 22px; }
@@ -414,7 +412,6 @@
   <ul class="nav-links">
     <li><a href="#how-it-works">How it works</a></li>
     <li><a href="#features">Features</a></li>
-    <li><a href="#pricing">Pricing</a></li>
     <li><a href="https://speedshelf-dashboard.streamlit.app" style="color: var(--orange); font-weight: 600;">Client Login</a></li>
     <li><a href="mailto:hello@speedshelf.cloud" class="nav-cta">Book a Demo</a></li>
   </ul>
@@ -453,10 +450,6 @@
       <div class="stat-item">
         <div class="stat-num">100%</div>
         <div class="stat-label">WhatsApp — no new apps</div>
-      </div>
-      <div class="stat-item">
-        <div class="stat-num">£40</div>
-        <div class="stat-label">Per month, all in</div>
       </div>
       <div class="stat-item">
         <div class="stat-num">2 wk</div>
@@ -586,7 +579,7 @@
       <div class="step-num">02</div>
       <div class="step-icon">⚡</div>
       <div class="step-title">AI Reads It</div>
-      <p class="step-desc">Our AI instantly extracts every item, quantity, and price. It even breaks cases into single units automatically — a case of 24 becomes 24 individual units.</p>
+      <p class="step-desc">Our AI instantly extracts every item and quantity. It even breaks cases into single units automatically — a case of 24 becomes 24 individual units.</p>
     </div>
     <div class="step-card">
       <div class="step-num">03</div>
@@ -683,17 +676,17 @@
   </div>
 </section>
 
-<!-- PRICING -->
-<section class="pricing-section" id="pricing">
+<!-- GET STARTED (replaces pricing section) -->
+<section class="pricing-section" id="get-started">
   <div style="text-align:center">
-    <div class="section-label" style="display:inline-block">// Pricing</div>
+    <div class="section-label" style="display:inline-block">// Get started</div>
   </div>
   <h2 class="section-title reveal" style="text-align:center; margin: 0 auto;">ONE PLAN.<br><span class="accent">NO SURPRISES.</span></h2>
   <div class="pricing-wrapper reveal">
     <div class="pricing-card">
       <div class="pricing-badge">Everything included</div>
-      <div class="pricing-price"><sup>£</sup>40</div>
-      <div class="pricing-period">per month · cancel anytime</div>
+      <div class="pricing-headline">GET IN TOUCH</div>
+      <div class="pricing-period">Tailored for your business · cancel anytime</div>
       <ul class="pricing-features">
         <li>Unlimited invoice scans</li>
         <li>Live inventory dashboard</li>
@@ -730,7 +723,6 @@
   <ul class="footer-links">
     <li><a href="#how-it-works">How it works</a></li>
     <li><a href="#features">Features</a></li>
-    <li><a href="#pricing">Pricing</a></li>
     <li><a href="/privacy">Privacy Policy</a></li>
     <li><a href="mailto:hello@speedshelf.cloud">hello@speedshelf.cloud</a></li>
   </ul>
