@@ -3,15 +3,20 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SpeedShelf — Stock Management on WhatsApp</title>
+<title>SpeedShelf — Stock Management, Sorted.</title>
 <link rel="icon" type="image/png" href="speedshelf-logo.png">
 <link rel="icon" type="image/png" sizes="32x32" href="speedshelf-logo.png">
 <link rel="apple-touch-icon" href="speedshelf-logo.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   :root {
+    --grad-start: #F5B731;
+    --grad-mid: #F26419;
+    --grad-end: #E84D1A;
+    --gradient: linear-gradient(135deg, var(--grad-start), var(--grad-mid), var(--grad-end));
+    --gradient-h: linear-gradient(90deg, var(--grad-start), var(--grad-mid), var(--grad-end));
     --orange: #F26419;
     --orange-bright: #FF7A2F;
     --black: #0A0A0A;
@@ -44,6 +49,7 @@
     z-index: 9999;
   }
 
+  /* NAV */
   nav {
     position: fixed;
     top: 0; left: 0; right: 0;
@@ -59,12 +65,25 @@
 
   .nav-logo { display: flex; align-items: center; gap: 12px; text-decoration: none; }
   .nav-logo img { width: 36px; height: 36px; }
-  .nav-logo span { font-family: 'Bebas Neue', sans-serif; font-size: 24px; letter-spacing: 2px; color: var(--white); }
+  .nav-logo span {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 24px; letter-spacing: 2px;
+    background: var(--gradient-h);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
   .nav-links { display: flex; align-items: center; gap: 36px; list-style: none; }
   .nav-links a { color: var(--white-dim); text-decoration: none; font-size: 14px; font-weight: 500; letter-spacing: 0.5px; transition: color 0.2s; }
   .nav-links a:hover { color: var(--white); }
-  .nav-cta { background: var(--orange); color: var(--black) !important; padding: 10px 22px; border-radius: 4px; font-weight: 600 !important; transition: background 0.2s !important; }
-  .nav-cta:hover { background: var(--orange-bright) !important; color: var(--black) !important; }
+  .nav-cta {
+    background: var(--gradient) !important;
+    color: var(--black) !important;
+    padding: 10px 22px;
+    border-radius: 4px;
+    font-weight: 600 !important;
+    -webkit-text-fill-color: var(--black) !important;
+  }
 
   /* HERO */
   .hero {
@@ -82,7 +101,7 @@
     position: absolute;
     top: -200px; right: -200px;
     width: 700px; height: 700px;
-    background: radial-gradient(circle, rgba(242,100,25,0.12) 0%, transparent 70%);
+    background: radial-gradient(circle, rgba(245,183,49,0.1) 0%, rgba(242,100,25,0.06) 50%, transparent 70%);
     pointer-events: none;
   }
 
@@ -126,13 +145,18 @@
 
   .hero h1 {
     font-family: 'Bebas Neue', sans-serif;
-    font-size: clamp(52px, 7vw, 110px);
+    font-size: clamp(48px, 6.5vw, 100px);
     line-height: 0.92;
     letter-spacing: 2px;
     animation: fadeUp 0.6s 0.1s ease both;
   }
 
-  .hero h1 .accent { color: var(--orange); }
+  .hero h1 .accent {
+    background: var(--gradient-h);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
 
   .hero-sub {
     font-size: clamp(15px, 1.6vw, 18px);
@@ -157,7 +181,7 @@
     display: inline-flex;
     align-items: center;
     gap: 10px;
-    background: var(--orange);
+    background: var(--gradient);
     color: var(--black);
     padding: 16px 32px;
     border-radius: 4px;
@@ -166,10 +190,7 @@
     text-decoration: none;
     letter-spacing: 0.5px;
     transition: all 0.2s;
-    position: relative;
-    overflow: hidden;
   }
-
   .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 40px rgba(242,100,25,0.35); }
 
   .btn-secondary {
@@ -183,7 +204,6 @@
     transition: color 0.2s;
     border-bottom: 1px solid transparent;
   }
-
   .btn-secondary:hover { color: var(--white); border-bottom-color: var(--white-dim); }
 
   .hero-stats {
@@ -196,123 +216,226 @@
     animation: fadeUp 0.6s 0.4s ease both;
   }
 
-  .stat-num { font-family: 'Bebas Neue', sans-serif; font-size: 38px; color: var(--orange); letter-spacing: 1px; line-height: 1; }
+  .stat-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 38px;
+    letter-spacing: 1px;
+    line-height: 1;
+    background: var(--gradient-h);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
   .stat-label { font-size: 12px; color: var(--white-dim); margin-top: 4px; }
 
-  /* HERO MOCKUP */
+  /* PWA PHONE MOCKUP */
   .hero-mockup-wrap {
     position: relative;
     z-index: 1;
     animation: fadeUp 0.6s 0.3s ease both;
-  }
-
-  .hero-wa-mockup {
-    background: #0D1418;
-    border-radius: 20px;
-    padding: 20px;
-    border: 1px solid rgba(255,255,255,0.08);
-    box-shadow: 0 40px 80px rgba(0,0,0,0.6), 0 0 0 1px rgba(242,100,25,0.1);
-    max-width: 340px;
-    margin: 0 auto;
-  }
-
-  .hero-wa-tabs {
     display: flex;
-    gap: 6px;
-    margin-bottom: 16px;
+    justify-content: center;
   }
 
-  .hero-wa-tab {
+  .phone-frame {
+    width: 280px;
+    background: #0A0A0A;
+    border-radius: 40px;
+    padding: 12px;
+    border: 1px solid rgba(255,255,255,0.12);
+    box-shadow: 0 40px 80px rgba(0,0,0,0.7), 0 0 0 1px rgba(245,183,49,0.15), inset 0 1px 0 rgba(255,255,255,0.05);
+    position: relative;
+  }
+
+  .phone-notch {
+    width: 80px;
+    height: 24px;
+    background: #0A0A0A;
+    border-radius: 0 0 16px 16px;
+    margin: 0 auto 8px;
+    position: relative;
+    z-index: 2;
+    border: 1px solid rgba(255,255,255,0.08);
+    border-top: none;
+  }
+
+  .phone-screen {
+    background: #0A0A0A;
+    border-radius: 28px;
+    overflow: hidden;
+    height: 520px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* PWA Header inside phone */
+  .pwa-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 14px;
+    background: #111111;
+    border-bottom: 1px solid rgba(245,245,240,0.08);
+    flex-shrink: 0;
+    position: relative;
+  }
+
+  .pwa-header::after {
+    content: '';
+    position: absolute;
+    bottom: -1px; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, #F5B731, #F26419, #E84D1A);
+    opacity: 0.6;
+  }
+
+  .pwa-avatar {
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    background: var(--gradient);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 13px;
+    color: var(--black);
+    flex-shrink: 0;
+  }
+
+  .pwa-header-text { flex: 1; }
+  .pwa-header-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 13px;
+    letter-spacing: 1px;
+    background: var(--gradient-h);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    line-height: 1;
+  }
+  .pwa-header-loc { font-size: 9px; color: var(--white-dim); margin-top: 1px; }
+
+  /* Chat messages inside phone */
+  .pwa-messages {
     flex: 1;
-    padding: 6px 10px;
-    border-radius: 6px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    overflow: hidden;
+  }
+
+  .pwa-conv { display: none; flex-direction: column; gap: 6px; }
+  .pwa-conv.active { display: flex; }
+
+  .pwa-msg {
+    max-width: 86%;
+    padding: 7px 10px;
+    border-radius: 12px;
     font-size: 10px;
+    line-height: 1.5;
+  }
+
+  .pwa-msg.user {
+    background: var(--gradient);
+    color: var(--black);
+    align-self: flex-end;
+    border-bottom-right-radius: 3px;
+    font-weight: 500;
+  }
+
+  .pwa-msg.bot {
+    background: #1A1A1A;
+    color: #E9EDEF;
+    align-self: flex-start;
+    border-bottom-left-radius: 3px;
+    border: 1px solid rgba(245,245,240,0.08);
+  }
+
+  .pwa-time { font-size: 8px; color: rgba(255,255,255,0.35); text-align: right; margin-top: 2px; }
+
+  /* PWA Input bar */
+  .pwa-input-bar {
+    padding: 8px 10px;
+    background: #111111;
+    border-top: 1px solid rgba(245,245,240,0.08);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-shrink: 0;
+  }
+
+  .pwa-input-field {
+    flex: 1;
+    background: #1A1A1A;
+    border: 1px solid rgba(245,245,240,0.08);
+    border-radius: 16px;
+    padding: 6px 12px;
+    font-size: 10px;
+    color: rgba(245,245,240,0.4);
+    font-family: 'DM Sans', sans-serif;
+  }
+
+  .pwa-send-btn {
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    background: var(--gradient);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .pwa-icon-btn {
+    width: 24px; height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba(245,245,240,0.4);
+    flex-shrink: 0;
+  }
+
+  /* Tabs inside mockup */
+  .pwa-tabs {
+    display: flex;
+    gap: 4px;
+    padding: 6px 10px;
+    background: #111111;
+    flex-shrink: 0;
+  }
+
+  .pwa-tab {
+    flex: 1;
+    padding: 4px 6px;
+    border-radius: 5px;
+    font-size: 8px;
     font-weight: 600;
-    letter-spacing: 0.5px;
+    letter-spacing: 0.3px;
     text-align: center;
     cursor: pointer;
     transition: all 0.25s;
-    color: rgba(245,245,240,0.45);
+    color: rgba(245,245,240,0.4);
     border: 1px solid transparent;
   }
 
-  .hero-wa-tab.active {
+  .pwa-tab.active {
     background: rgba(242,100,25,0.15);
     border-color: rgba(242,100,25,0.4);
     color: var(--orange);
   }
 
-  .wa-header {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    padding-bottom: 14px;
-    border-bottom: 1px solid rgba(255,255,255,0.06);
-    margin-bottom: 16px;
-  }
-
-  .wa-avatar {
-    width: 38px; height: 38px;
-    border-radius: 50%;
-    background: var(--orange);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 16px;
-    color: var(--black);
-    flex-shrink: 0;
-  }
-
-  .wa-name { font-size: 14px; font-weight: 600; }
-  .wa-status { font-size: 11px; color: #4CAF50; }
-
-  .wa-messages { display: flex; flex-direction: column; gap: 8px; min-height: 220px; }
-
-  .wa-conv { display: none; flex-direction: column; gap: 8px; }
-  .wa-conv.active { display: flex; }
-
-  .wa-msg {
-    max-width: 88%;
-    padding: 9px 12px;
-    border-radius: 10px;
-    font-size: 12px;
-    line-height: 1.5;
-  }
-
-  .wa-msg.user { background: #005C4B; align-self: flex-end; border-radius: 10px 0 10px 10px; }
-  .wa-msg.bot { background: #1F2C34; align-self: flex-start; border-radius: 0 10px 10px 10px; color: #E9EDEF; }
-
-  .wa-time { font-size: 9px; color: rgba(255,255,255,0.35); text-align: right; margin-top: 3px; }
-
-  .wa-typing {
-    display: flex;
-    gap: 4px;
-    align-items: center;
-    padding: 9px 12px;
-    background: #1F2C34;
-    border-radius: 0 10px 10px 10px;
-    width: fit-content;
-  }
-
-  .wa-typing span {
-    width: 5px; height: 5px;
-    border-radius: 50%;
-    background: rgba(255,255,255,0.4);
-    animation: typing 1.2s infinite;
-  }
-
-  .wa-typing span:nth-child(2) { animation-delay: 0.2s; }
-  .wa-typing span:nth-child(3) { animation-delay: 0.4s; }
-
-  @keyframes typing { 0%, 60%, 100% { transform: translateY(0); } 30% { transform: translateY(-4px); } }
   @keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
 
   /* SECTIONS */
   section { padding: 100px 48px; position: relative; }
   .section-label { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--orange); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 20px; }
   .section-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(40px, 6vw, 72px); letter-spacing: 1px; line-height: 1; max-width: 700px; }
-  .section-title .accent { color: var(--orange); }
+  .section-title .accent {
+    background: var(--gradient-h);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
 
   /* STEPS */
   .steps-section { background: var(--black-2); }
@@ -320,9 +443,8 @@
   .step-card { background: var(--black-3); padding: 48px 36px; position: relative; transition: background 0.3s; }
   .step-card:hover { background: #1f1f1f; }
   .step-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: transparent; transition: background 0.3s; }
-  .step-card:hover::before { background: var(--orange); }
-  .step-num { font-family: 'Bebas Neue', sans-serif; font-size: 72px; color: rgba(242,100,25,0.12); line-height: 1; margin-bottom: 20px; transition: color 0.3s; }
-  .step-card:hover .step-num { color: rgba(242,100,25,0.25); }
+  .step-card:hover::before { background: var(--gradient-h); }
+  .step-num { font-family: 'Bebas Neue', sans-serif; font-size: 72px; color: rgba(242,100,25,0.12); line-height: 1; margin-bottom: 20px; }
   .step-icon { font-size: 32px; margin-bottom: 20px; }
   .step-title { font-family: 'Bebas Neue', sans-serif; font-size: 26px; letter-spacing: 1px; margin-bottom: 12px; }
   .step-desc { font-size: 15px; color: var(--white-dim); line-height: 1.7; font-weight: 300; }
@@ -331,28 +453,131 @@
   .mockup-section { padding: 100px 48px; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
   .mockup-text p { font-size: 16px; color: var(--white-dim); line-height: 1.8; font-weight: 300; }
 
-  .whatsapp-mockup { background: #0D1418; border-radius: 16px; padding: 20px; max-width: 380px; border: 1px solid rgba(255,255,255,0.06); box-shadow: 0 40px 80px rgba(0,0,0,0.5); margin: auto; }
-  .wa-messages-static { display: flex; flex-direction: column; gap: 10px; }
-  .wa-msg-lg { max-width: 85%; padding: 10px 14px; border-radius: 10px; font-size: 13px; line-height: 1.5; }
-  .wa-msg-lg.user { background: #005C4B; align-self: flex-end; border-radius: 10px 0 10px 10px; }
-  .wa-msg-lg.bot { background: #1F2C34; align-self: flex-start; border-radius: 0 10px 10px 10px; color: #E9EDEF; }
-  .wa-time-lg { font-size: 10px; color: rgba(255,255,255,0.4); text-align: right; margin-top: 4px; }
+  /* Static chat mockup for "real interaction" section */
+  .chat-mockup {
+    background: #111111;
+    border-radius: 16px;
+    padding: 0;
+    max-width: 360px;
+    border: 1px solid rgba(245,245,240,0.08);
+    box-shadow: 0 40px 80px rgba(0,0,0,0.5);
+    margin: auto;
+    overflow: hidden;
+  }
+
+  .chat-mockup-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 16px;
+    background: #111111;
+    border-bottom: 1px solid rgba(245,245,240,0.08);
+    position: relative;
+  }
+
+  .chat-mockup-header::after {
+    content: '';
+    position: absolute;
+    bottom: -1px; left: 0; right: 0;
+    height: 2px;
+    background: var(--gradient-h);
+    opacity: 0.5;
+  }
+
+  .chat-mockup-avatar {
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    background: var(--gradient);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 16px;
+    color: var(--black);
+  }
+
+  .chat-mockup-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 18px;
+    letter-spacing: 1px;
+    background: var(--gradient-h);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .chat-mockup-status { font-size: 11px; color: #4ade80; }
+
+  .chat-mockup-body {
+    padding: 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .chat-msg-lg {
+    max-width: 85%;
+    padding: 10px 14px;
+    border-radius: 14px;
+    font-size: 13px;
+    line-height: 1.5;
+  }
+
+  .chat-msg-lg.user {
+    background: var(--gradient);
+    color: var(--black);
+    align-self: flex-end;
+    border-bottom-right-radius: 3px;
+    font-weight: 500;
+  }
+
+  .chat-msg-lg.bot {
+    background: #1A1A1A;
+    color: #E9EDEF;
+    align-self: flex-start;
+    border-bottom-left-radius: 3px;
+    border: 1px solid rgba(245,245,240,0.08);
+  }
+
+  .chat-msg-time { font-size: 10px; color: rgba(255,255,255,0.4); text-align: right; margin-top: 4px; }
+
+  .chat-typing {
+    display: flex;
+    gap: 4px;
+    align-items: center;
+    padding: 9px 12px;
+    background: #1A1A1A;
+    border-radius: 14px;
+    border-bottom-left-radius: 3px;
+    border: 1px solid rgba(245,245,240,0.08);
+    width: fit-content;
+  }
+
+  .chat-typing span {
+    width: 5px; height: 5px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.4);
+    animation: typing 1.2s infinite;
+  }
+  .chat-typing span:nth-child(2) { animation-delay: 0.2s; }
+  .chat-typing span:nth-child(3) { animation-delay: 0.4s; }
+  @keyframes typing { 0%, 60%, 100% { transform: translateY(0); } 30% { transform: translateY(-4px); } }
 
   /* FEATURES */
   .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; margin-top: 64px; }
-  .feature-card { background: var(--black-2); border: 1px solid var(--border); border-radius: 8px; padding: 36px; transition: border-color 0.3s, transform 0.3s; position: relative; overflow: hidden; }
+  .feature-card { background: var(--black-2); border: 1px solid var(--border); border-radius: 8px; padding: 36px; transition: border-color 0.3s, transform 0.3s; }
   .feature-card:hover { border-color: rgba(242,100,25,0.3); transform: translateY(-4px); }
   .feature-icon { width: 48px; height: 48px; background: rgba(242,100,25,0.1); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 22px; margin-bottom: 24px; }
   .feature-title { font-family: 'Bebas Neue', sans-serif; font-size: 22px; letter-spacing: 1px; margin-bottom: 10px; }
   .feature-desc { font-size: 14px; color: var(--white-dim); line-height: 1.7; font-weight: 300; }
 
-  /* PRICING */
+  /* GET STARTED */
   .pricing-section { background: var(--black-2); }
   .pricing-wrapper { display: flex; justify-content: center; margin-top: 64px; }
   .pricing-card { background: var(--black-3); border: 1px solid rgba(242,100,25,0.4); border-radius: 12px; padding: 56px 64px; max-width: 520px; width: 100%; position: relative; overflow: hidden; text-align: center; }
-  .pricing-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--orange), var(--orange-bright)); }
+  .pricing-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--gradient-h); }
   .pricing-badge { display: inline-block; background: rgba(242,100,25,0.15); border: 1px solid rgba(242,100,25,0.3); color: var(--orange); font-size: 11px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; padding: 5px 14px; border-radius: 100px; margin-bottom: 28px; }
-  .pricing-headline { font-family: 'Bebas Neue', sans-serif; font-size: 52px; line-height: 1; color: var(--orange); letter-spacing: 2px; margin-bottom: 8px; }
+  .pricing-headline { font-family: 'Bebas Neue', sans-serif; font-size: 52px; line-height: 1; letter-spacing: 2px; margin-bottom: 8px; background: var(--gradient-h); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
   .pricing-period { font-size: 14px; color: var(--white-dim); margin-bottom: 40px; }
   .pricing-features { list-style: none; text-align: left; margin-bottom: 44px; display: flex; flex-direction: column; gap: 14px; }
   .pricing-features li { display: flex; align-items: center; gap: 14px; font-size: 15px; color: var(--white-dim); }
@@ -364,7 +589,7 @@
   .proof-label { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--white-dimmer); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 32px; }
 
   /* CTA */
-  .cta-section { background: var(--orange); padding: 80px 48px; text-align: center; position: relative; overflow: hidden; }
+  .cta-section { background: var(--gradient); padding: 80px 48px; text-align: center; position: relative; overflow: hidden; }
   .cta-section::before { content: 'SPEEDSHELF'; position: absolute; font-family: 'Bebas Neue', sans-serif; font-size: 200px; color: rgba(0,0,0,0.08); top: 50%; left: 50%; transform: translate(-50%, -50%); white-space: nowrap; pointer-events: none; letter-spacing: 10px; }
   .cta-section h2 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(40px, 6vw, 72px); color: var(--black); letter-spacing: 2px; line-height: 1; margin-bottom: 20px; position: relative; }
   .cta-section p { font-size: 18px; color: rgba(0,0,0,0.6); margin-bottom: 40px; position: relative; font-weight: 300; }
@@ -375,7 +600,7 @@
   footer { background: var(--black); padding: 48px; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--border); flex-wrap: wrap; gap: 20px; }
   .footer-logo { display: flex; align-items: center; gap: 12px; }
   .footer-logo img { width: 28px; height: 28px; }
-  .footer-logo span { font-family: 'Bebas Neue', sans-serif; font-size: 20px; letter-spacing: 2px; }
+  .footer-logo span { font-family: 'Bebas Neue', sans-serif; font-size: 20px; letter-spacing: 2px; background: var(--gradient-h); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
   .footer-links { display: flex; gap: 28px; list-style: none; flex-wrap: wrap; }
   .footer-links a { color: var(--white-dimmer); text-decoration: none; font-size: 13px; transition: color 0.2s; }
   .footer-links a:hover { color: var(--white-dim); }
@@ -426,11 +651,11 @@
     <div class="hero-label">Now accepting free trials</div>
     <h1>
       STOCK MANAGEMENT<br>
-      LIVES IN YOUR<br>
-      <span class="accent">WHATSAPP.</span>
+      LIKE TEXTING<br>
+      <span class="accent">YOUR MATE.</span>
     </h1>
     <p class="hero-sub">
-      Snap a photo of your delivery invoice. SpeedShelf's AI reads it, updates your stock, and keeps your inventory live — in seconds. No apps. No training. No spreadsheets.
+      Snap your delivery invoice. SpeedShelf's AI reads it, updates your stock, and keeps your inventory live — in seconds. No spreadsheets. No training. Just chat.
     </p>
     <div class="hero-actions">
       <a href="mailto:hello@speedshelf.cloud" class="btn-primary">
@@ -449,7 +674,7 @@
       </div>
       <div class="stat-item">
         <div class="stat-num">100%</div>
-        <div class="stat-label">WhatsApp — no new apps</div>
+        <div class="stat-label">Chat-based — no new apps</div>
       </div>
       <div class="stat-item">
         <div class="stat-num">2 wk</div>
@@ -458,99 +683,119 @@
     </div>
   </div>
 
-  <!-- HERO WHATSAPP MOCKUP -->
+  <!-- PWA PHONE MOCKUP -->
   <div class="hero-mockup-wrap">
-    <div class="hero-wa-mockup">
-      <div class="hero-wa-tabs">
-        <div class="hero-wa-tab active" onclick="switchTab('salon')">💇 Hair Salon</div>
-        <div class="hero-wa-tab" onclick="switchTab('bar')">🍸 Cocktail Bar</div>
-        <div class="hero-wa-tab" onclick="switchTab('florist')">💐 Florist</div>
-      </div>
-      <div class="wa-header">
-        <div class="wa-avatar">S</div>
-        <div>
-          <div class="wa-name">SpeedShelf</div>
-          <div class="wa-status">● online</div>
-        </div>
-      </div>
-      <div class="wa-messages">
+    <div class="phone-frame">
+      <div class="phone-notch"></div>
+      <div class="phone-screen">
 
-        <!-- SALON -->
-        <div class="wa-conv active" id="conv-salon">
-          <div class="wa-msg user">
-            📎 delivery_invoice.jpg
-            <div class="wa-time">09:14 ✓✓</div>
+        <div class="pwa-header">
+          <div class="pwa-avatar">S</div>
+          <div class="pwa-header-text">
+            <div class="pwa-header-name">SpeedShelf</div>
+            <div class="pwa-header-loc" id="pwa-loc-label">Hair Salon</div>
           </div>
-          <div class="wa-msg bot">
-            ✅ <strong>Invoice processed!</strong><br><br>
-            Added to stock:<br>
-            • Wella Koleston 7/1 × 12<br>
-            • Olaplex No.3 × 6<br>
-            • L'Oréal Majirel 6.45 × 24<br><br>
-            <em>Dashboard updated.</em>
-            <div class="wa-time">09:14</div>
-          </div>
-          <div class="wa-msg user">
-            Deduct 3 Wella 7/1
-            <div class="wa-time">11:32 ✓✓</div>
-          </div>
-          <div class="wa-msg bot">
-            ✅ <strong>Stock updated</strong><br>
-            Wella Koleston 7/1: <strong>9 remaining</strong>
-            <div class="wa-time">11:32</div>
-          </div>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="rgba(245,245,240,0.3)" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
         </div>
 
-        <!-- BAR -->
-        <div class="wa-conv" id="conv-bar">
-          <div class="wa-msg user">
-            📎 delivery_invoice.jpg
-            <div class="wa-time">10:02 ✓✓</div>
-          </div>
-          <div class="wa-msg bot">
-            ✅ <strong>Invoice processed!</strong><br><br>
-            Added to stock:<br>
-            • Hendricks Gin × 6<br>
-            • Fever Tree Tonic × 48<br>
-            • Grey Goose Vodka × 12<br><br>
-            <em>Dashboard updated.</em>
-            <div class="wa-time">10:02</div>
-          </div>
-          <div class="wa-msg user">
-            Deduct 2 Hendricks Gin
-            <div class="wa-time">22:15 ✓✓</div>
-          </div>
-          <div class="wa-msg bot">
-            ✅ <strong>Stock updated</strong><br>
-            Hendricks Gin: <strong>4 remaining</strong><br>
-            ⚠️ Below alert threshold (6)
-            <div class="wa-time">22:15</div>
-          </div>
+        <div class="pwa-tabs">
+          <div class="pwa-tab active" onclick="switchPwaTab('salon', this)">💇 Salon</div>
+          <div class="pwa-tab" onclick="switchPwaTab('bar', this)">🍸 Bar</div>
+          <div class="pwa-tab" onclick="switchPwaTab('florist', this)">💐 Florist</div>
         </div>
 
-        <!-- FLORIST -->
-        <div class="wa-conv" id="conv-florist">
-          <div class="wa-msg user">
-            📎 delivery_invoice.jpg
-            <div class="wa-time">07:45 ✓✓</div>
+        <div class="pwa-messages">
+
+          <div class="pwa-conv active" id="pwa-salon">
+            <div class="pwa-msg user">
+              📎 invoice.jpg
+              <div class="pwa-time">09:14</div>
+            </div>
+            <div class="pwa-msg bot">
+              ✅ <strong>Invoice processed!</strong><br><br>
+              Added to stock:<br>
+              • Majirel 5.0 × 12<br>
+              • Olaplex No.3 × 6<br>
+              • Wella 7/1 × 24<br><br>
+              <em>Dashboard updated.</em>
+              <div class="pwa-time">09:14</div>
+            </div>
+            <div class="pwa-msg user">
+              -3 Majirel 5.0
+              <div class="pwa-time">11:32</div>
+            </div>
+            <div class="pwa-msg bot">
+              ✅ Majirel 5.0:<br>
+              Subtracted 3 tubes.<br>
+              <strong>9 remaining.</strong>
+              <div class="pwa-time">11:32</div>
+            </div>
           </div>
-          <div class="wa-msg bot">
-            ✅ <strong>Invoice processed!</strong><br><br>
-            Added to stock:<br>
-            • White Roses × 120<br>
-            • Eucalyptus Stems × 60<br>
-            • Pink Peonies × 48<br><br>
-            <em>Dashboard updated.</em>
-            <div class="wa-time">07:45</div>
+
+          <div class="pwa-conv" id="pwa-bar">
+            <div class="pwa-msg user">
+              📎 invoice.jpg
+              <div class="pwa-time">10:02</div>
+            </div>
+            <div class="pwa-msg bot">
+              ✅ <strong>Invoice processed!</strong><br><br>
+              Added to stock:<br>
+              • Hendricks Gin × 6<br>
+              • Fever Tree Tonic × 48<br>
+              • Grey Goose × 12<br><br>
+              <em>Dashboard updated.</em>
+              <div class="pwa-time">10:02</div>
+            </div>
+            <div class="pwa-msg user">
+              -2 Hendricks Gin
+              <div class="pwa-time">22:15</div>
+            </div>
+            <div class="pwa-msg bot">
+              ✅ Hendricks Gin:<br>
+              Subtracted 2 bottles.<br>
+              <strong>4 remaining.</strong>
+              <div class="pwa-time">22:15</div>
+            </div>
           </div>
-          <div class="wa-msg user">
-            Deduct 20 white roses
-            <div class="wa-time">13:10 ✓✓</div>
+
+          <div class="pwa-conv" id="pwa-florist">
+            <div class="pwa-msg user">
+              📎 invoice.jpg
+              <div class="pwa-time">07:45</div>
+            </div>
+            <div class="pwa-msg bot">
+              ✅ <strong>Invoice processed!</strong><br><br>
+              Added to stock:<br>
+              • White Roses × 120<br>
+              • Eucalyptus × 60<br>
+              • Pink Peonies × 48<br><br>
+              <em>Dashboard updated.</em>
+              <div class="pwa-time">07:45</div>
+            </div>
+            <div class="pwa-msg user">
+              -20 white roses
+              <div class="pwa-time">13:10</div>
+            </div>
+            <div class="pwa-msg bot">
+              ✅ White Roses:<br>
+              Subtracted 20 units.<br>
+              <strong>100 remaining.</strong>
+              <div class="pwa-time">13:10</div>
+            </div>
           </div>
-          <div class="wa-msg bot">
-            ✅ <strong>Stock updated</strong><br>
-            White Roses: <strong>100 remaining</strong>
-            <div class="wa-time">13:10</div>
+
+        </div>
+
+        <div class="pwa-input-bar">
+          <div class="pwa-input-field">e.g. -2 Hendricks Gin</div>
+          <div class="pwa-icon-btn">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 19a2 2 0 01-2 2H3a2 2 0 01-2-2V8a2 2 0 012-2h4l2-3h6l2 3h4a2 2 0 012 2z"/><circle cx="12" cy="13" r="4"/></svg>
+          </div>
+          <div class="pwa-icon-btn">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 1a3 3 0 00-3 3v8a3 3 0 006 0V4a3 3 0 00-3-3z"/><path d="M19 10v2a7 7 0 01-14 0v-2"/></svg>
+          </div>
+          <div class="pwa-send-btn">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="3" stroke-linecap="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2" fill="black" stroke="none"/></svg>
           </div>
         </div>
 
@@ -573,7 +818,7 @@
       <div class="step-num">01</div>
       <div class="step-icon">📸</div>
       <div class="step-title">Snap the Invoice</div>
-      <p class="step-desc">Take a photo of any delivery invoice — handwritten, printed, digital — and send it to your SpeedShelf WhatsApp number. Done.</p>
+      <p class="step-desc">Take a photo of any delivery invoice — handwritten, printed, digital — and send it through the SpeedShelf app. Done.</p>
     </div>
     <div class="step-card">
       <div class="step-num">02</div>
@@ -590,48 +835,48 @@
   </div>
 </section>
 
-<!-- EXISTING MOCKUP SECTION -->
+<!-- MOCKUP SECTION -->
 <section class="mockup-section">
   <div class="mockup-text">
     <div class="section-label">// Real interaction</div>
     <h2 class="section-title reveal">IT REALLY IS<br><span class="accent">THIS SIMPLE.</span></h2>
-    <p class="reveal" style="margin-top: 24px;">Your staff already knows how to use WhatsApp. No onboarding, no training sessions, no manuals. If they can send a message, they can manage stock.</p>
+    <p class="reveal" style="margin-top: 24px;">Your staff already knows how to send a message. No onboarding, no training sessions, no manuals. If they can text, they can manage stock.</p>
     <p class="reveal" style="margin-top: 16px;">Voice notes work too — just say what you need and SpeedShelf updates your inventory automatically.</p>
   </div>
 
-  <div class="whatsapp-mockup reveal">
-    <div class="wa-header">
-      <div class="wa-avatar">S</div>
+  <div class="chat-mockup reveal">
+    <div class="chat-mockup-header">
+      <div class="chat-mockup-avatar">S</div>
       <div>
-        <div class="wa-name">SpeedShelf</div>
-        <div class="wa-status">● online</div>
+        <div class="chat-mockup-name">SpeedShelf</div>
+        <div class="chat-mockup-status">● online</div>
       </div>
     </div>
-    <div class="wa-messages-static">
-      <div class="wa-msg-lg user">
+    <div class="chat-mockup-body">
+      <div class="chat-msg-lg user">
         📎 delivery_invoice.jpg
-        <div class="wa-time-lg">09:42 ✓✓</div>
+        <div class="chat-msg-time">09:42</div>
       </div>
-      <div class="wa-msg-lg bot">
-        ✅ <strong>Invoice processed!</strong><br><br>
+      <div class="chat-msg-lg bot">
+        ✅ <strong>Invoice Processed: L'Oréal</strong><br><br>
         Added to stock:<br>
-        • Wella Koleston 7/1 × 12<br>
-        • Hendricks Gin × 6<br>
-        • Pink Peonies × 48<br><br>
+        • Majirel 5.0 × 12<br>
+        • Inoa 6.66 Carmilane × 6<br>
+        • Dia Color 5.1 × 24<br><br>
         <em>Dashboard updated.</em>
-        <div class="wa-time-lg">09:42</div>
+        <div class="chat-msg-time">09:42</div>
       </div>
-      <div class="wa-msg-lg user">
+      <div class="chat-msg-lg user">
         🎙️ <em>Voice note · 0:04</em>
-        <div class="wa-time-lg">11:15 ✓✓</div>
+        <div class="chat-msg-time">11:15</div>
       </div>
-      <div class="wa-msg-lg bot">
-        ✅ <strong>Stock updated</strong><br>
-        Deducted 3 × Wella Koleston 7/1<br>
-        Remaining: <strong>9 units</strong>
-        <div class="wa-time-lg">11:15</div>
+      <div class="chat-msg-lg bot">
+        ✅ Inventory Updated:<br>
+        • Majirel 5.0: Subtracted 3 tubes<br>
+        <strong>9 remaining.</strong>
+        <div class="chat-msg-time">11:15</div>
       </div>
-      <div class="wa-typing">
+      <div class="chat-typing">
         <span></span><span></span><span></span>
       </div>
     </div>
@@ -670,13 +915,13 @@
     </div>
     <div class="feature-card reveal">
       <div class="feature-icon">💬</div>
-      <div class="feature-title">100% WhatsApp</div>
-      <p class="feature-desc">Zero new apps. Zero training. Your team is already on WhatsApp — SpeedShelf meets them there.</p>
+      <div class="feature-title">Chat-Based — Zero Training</div>
+      <p class="feature-desc">No new apps to learn. Your team sends a message, stock updates. It's that simple.</p>
     </div>
   </div>
 </section>
 
-<!-- GET STARTED (replaces pricing section) -->
+<!-- GET STARTED -->
 <section class="pricing-section" id="get-started">
   <div style="text-align:center">
     <div class="section-label" style="display:inline-block">// Get started</div>
@@ -693,7 +938,7 @@
         <li>AI case-to-unit splitting</li>
         <li>Weekly low-stock email report</li>
         <li>Voice note stock updates</li>
-        <li>WhatsApp support included</li>
+        <li>Chat support included</li>
         <li>Setup and onboarding included</li>
       </ul>
       <a href="mailto:hello@speedshelf.cloud" class="btn-primary" style="width:100%; justify-content:center; font-size:16px; padding:18px;">
@@ -730,11 +975,13 @@
 </footer>
 
 <script>
-  function switchTab(vertical) {
-    document.querySelectorAll('.hero-wa-tab').forEach(t => t.classList.remove('active'));
-    document.querySelectorAll('.wa-conv').forEach(c => c.classList.remove('active'));
-    event.currentTarget.classList.add('active');
-    document.getElementById('conv-' + vertical).classList.add('active');
+  function switchPwaTab(vertical, el) {
+    document.querySelectorAll('.pwa-tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.pwa-conv').forEach(c => c.classList.remove('active'));
+    el.classList.add('active');
+    document.getElementById('pwa-' + vertical).classList.add('active');
+    const labels = { salon: 'Hair Salon', bar: 'Cocktail Bar', florist: 'Florist' };
+    document.getElementById('pwa-loc-label').textContent = labels[vertical];
   }
 
   const reveals = document.querySelectorAll('.reveal');
