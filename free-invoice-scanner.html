@@ -785,7 +785,7 @@ footer {
           <div class="cta-feature">Works for salons, bars, trades, coffee shops</div>
           <div class="cta-feature">14-day free trial — no card required</div>
         </div>
-        <a href="https://app.speedshelf.cloud" class="cta-banner-btn">Start Free Trial — £40/month after trial ⚡</a>
+        <a href="https://app.speedshelf.cloud" class="cta-banner-btn">Start Your Free Trial ⚡</a>
       </div>
     </div>
 
@@ -927,9 +927,11 @@ function renderResults(data) {
   meta.push(`${data.items.length} item${data.items.length !== 1 ? 's' : ''} found`);
   document.getElementById('results-meta').textContent = meta.join(' · ');
 
-  // Currency symbol
+  // Currency symbol — use what the invoice actually shows.
+  // If Gemini can't detect it, show no symbol rather than guess wrong
+  // (a wrong currency symbol jars both UK and US users; a bare number doesn't).
   const currencyMap = { GBP: '£', USD: '$', EUR: '€' };
-  const symbol = currencyMap[data.currency] || '£';
+  const symbol = currencyMap[data.currency] || '';
 
   // Table rows
   const tbody = document.getElementById('results-tbody');
