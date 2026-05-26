@@ -1,0 +1,1001 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Free AI invoice scanner for small businesses. Upload any delivery invoice and instantly extract all items, quantities and prices. No signup required.">
+<meta name="keywords" content="free invoice scanner, AI invoice reader, stock management, small business invoice tool, delivery note scanner">
+<title>Free AI Invoice Scanner — SpeedShelf</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --grad-start: #F5B731;
+  --grad-mid:   #F26419;
+  --grad-end:   #E84D1A;
+  --gradient:   linear-gradient(135deg, var(--grad-start), var(--grad-mid), var(--grad-end));
+  --gradient-h: linear-gradient(90deg,  var(--grad-start), var(--grad-mid), var(--grad-end));
+  --orange:      #F26419;
+  --black:       #0A0A0A;
+  --black-2:     #111111;
+  --black-3:     #1A1A1A;
+  --black-4:     #222222;
+  --white:       #F5F5F0;
+  --white-dim:   rgba(245,245,240,0.55);
+  --white-dimmer:rgba(245,245,240,0.2);
+  --white-faint: rgba(245,245,240,0.07);
+  --border:      rgba(245,245,240,0.08);
+  --green:       #4ADE80;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--black);
+  color: var(--white);
+  font-family: 'DM Sans', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+}
+
+/* ── NAV ── */
+nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 32px;
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  background: rgba(10,10,10,0.92);
+  backdrop-filter: blur(12px);
+  z-index: 100;
+}
+
+.nav-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+}
+
+.nav-logo-icon {
+  width: 36px;
+  height: 36px;
+  background: var(--gradient);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 20px;
+  color: var(--black);
+}
+
+.nav-logo-name {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 22px;
+  letter-spacing: 3px;
+  background: var(--gradient-h);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.nav-cta {
+  background: var(--gradient);
+  color: var(--black);
+  border: none;
+  border-radius: 8px;
+  padding: 10px 20px;
+  font-size: 13px;
+  font-weight: 700;
+  font-family: 'DM Sans', sans-serif;
+  cursor: pointer;
+  text-decoration: none;
+  letter-spacing: 0.3px;
+}
+
+/* ── HERO ── */
+.hero {
+  text-align: center;
+  padding: 80px 24px 60px;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -100px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(245,183,49,0.08) 0%, rgba(242,100,25,0.05) 40%, transparent 70%);
+  pointer-events: none;
+}
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--orange-dim, rgba(242,100,25,0.12));
+  border: 1px solid rgba(242,100,25,0.25);
+  border-radius: 100px;
+  padding: 6px 14px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--orange);
+  letter-spacing: 0.5px;
+  margin-bottom: 28px;
+  text-transform: uppercase;
+}
+
+.hero-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(48px, 8vw, 88px);
+  letter-spacing: 2px;
+  line-height: 0.95;
+  margin-bottom: 24px;
+}
+
+.hero-title span {
+  background: var(--gradient-h);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.hero-sub {
+  font-size: clamp(16px, 2.5vw, 20px);
+  color: var(--white-dim);
+  max-width: 560px;
+  margin: 0 auto 16px;
+  line-height: 1.6;
+}
+
+.hero-note {
+  font-size: 13px;
+  color: var(--white-dimmer);
+}
+
+.hero-note strong {
+  color: var(--green);
+  font-weight: 600;
+}
+
+/* ── SCANNER CARD ── */
+.scanner-wrap {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 0 24px 80px;
+}
+
+.scanner-card {
+  background: var(--black-2);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.scanner-card-header {
+  padding: 24px 28px 20px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.scanner-card-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 20px;
+  letter-spacing: 2px;
+  color: var(--white);
+}
+
+.scanner-card-sub {
+  font-size: 12px;
+  color: var(--white-dimmer);
+  margin-top: 2px;
+}
+
+.scanner-icon {
+  width: 40px;
+  height: 40px;
+  background: var(--gradient);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  flex-shrink: 0;
+}
+
+/* ── DROP ZONE ── */
+.drop-zone {
+  margin: 28px;
+  border: 2px dashed var(--border);
+  border-radius: 14px;
+  padding: 48px 24px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.drop-zone:hover,
+.drop-zone.drag-over {
+  border-color: var(--orange);
+  background: rgba(242,100,25,0.04);
+}
+
+.drop-zone input[type="file"] {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  cursor: pointer;
+  width: 100%;
+  height: 100%;
+}
+
+.drop-icon {
+  font-size: 48px;
+  margin-bottom: 16px;
+  display: block;
+}
+
+.drop-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--white);
+  margin-bottom: 8px;
+}
+
+.drop-sub {
+  font-size: 13px;
+  color: var(--white-dimmer);
+  line-height: 1.5;
+}
+
+.drop-formats {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 16px;
+  flex-wrap: wrap;
+}
+
+.format-tag {
+  background: var(--white-faint);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 4px 10px;
+  font-size: 11px;
+  color: var(--white-dimmer);
+  letter-spacing: 0.5px;
+}
+
+/* ── PREVIEW ── */
+.preview-wrap {
+  margin: 0 28px 28px;
+  display: none;
+}
+
+.preview-wrap.visible { display: block; }
+
+.preview-img {
+  width: 100%;
+  max-height: 300px;
+  object-fit: contain;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: var(--black-3);
+}
+
+.preview-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.btn-scan {
+  flex: 1;
+  background: var(--gradient);
+  color: var(--black);
+  border: none;
+  border-radius: 10px;
+  padding: 14px;
+  font-size: 15px;
+  font-weight: 700;
+  font-family: 'DM Sans', sans-serif;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.btn-scan:disabled { opacity: 0.5; cursor: not-allowed; }
+
+.btn-clear {
+  background: var(--white-faint);
+  color: var(--white-dim);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 14px 18px;
+  font-size: 14px;
+  font-family: 'DM Sans', sans-serif;
+  cursor: pointer;
+}
+
+/* ── LOADING ── */
+.loading-wrap {
+  display: none;
+  padding: 40px 28px;
+  text-align: center;
+}
+
+.loading-wrap.visible { display: block; }
+
+.loading-spinner {
+  width: 44px;
+  height: 44px;
+  border: 3px solid var(--border);
+  border-top-color: var(--orange);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  margin: 0 auto 16px;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.loading-text {
+  font-size: 14px;
+  color: var(--white-dim);
+}
+
+.loading-sub {
+  font-size: 12px;
+  color: var(--white-dimmer);
+  margin-top: 6px;
+}
+
+/* ── RESULTS ── */
+.results-wrap {
+  display: none;
+  padding: 0 28px 28px;
+}
+
+.results-wrap.visible { display: block; }
+
+.results-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.results-vendor {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 18px;
+  letter-spacing: 1.5px;
+  color: var(--white);
+}
+
+.results-meta {
+  font-size: 12px;
+  color: var(--white-dimmer);
+  margin-top: 2px;
+}
+
+.results-badge {
+  background: rgba(74,222,128,0.1);
+  border: 1px solid rgba(74,222,128,0.25);
+  border-radius: 100px;
+  padding: 4px 12px;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--green);
+  letter-spacing: 0.5px;
+}
+
+.results-table-wrap {
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+  margin-bottom: 20px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+thead {
+  background: var(--black-3);
+}
+
+thead th {
+  padding: 12px 16px;
+  text-align: left;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--white-dimmer);
+  border-bottom: 1px solid var(--border);
+}
+
+thead th:last-child { text-align: right; }
+
+tbody tr {
+  border-bottom: 1px solid var(--border);
+  transition: background 0.15s;
+}
+
+tbody tr:last-child { border-bottom: none; }
+tbody tr:hover { background: var(--white-faint); }
+
+tbody td {
+  padding: 12px 16px;
+  color: var(--white);
+  vertical-align: middle;
+}
+
+tbody td:last-child {
+  text-align: right;
+  color: var(--orange);
+  font-weight: 600;
+}
+
+.td-desc { font-weight: 500; }
+.td-qty { color: var(--white-dim); }
+
+.results-total {
+  background: var(--black-3);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 16px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+}
+
+.results-total-label {
+  font-size: 13px;
+  color: var(--white-dim);
+  font-weight: 500;
+}
+
+.results-total-value {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 28px;
+  letter-spacing: 1px;
+  background: var(--gradient-h);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.btn-try-again {
+  width: 100%;
+  background: var(--white-faint);
+  color: var(--white-dim);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 12px;
+  font-size: 13px;
+  font-family: 'DM Sans', sans-serif;
+  cursor: pointer;
+  margin-bottom: 12px;
+}
+
+/* ── CTA BANNER ── */
+.cta-banner {
+  background: linear-gradient(135deg, rgba(245,183,49,0.08), rgba(242,100,25,0.08));
+  border: 1px solid rgba(242,100,25,0.2);
+  border-radius: 14px;
+  padding: 24px 20px;
+  text-align: center;
+}
+
+.cta-banner-emoji { font-size: 32px; margin-bottom: 12px; display: block; }
+
+.cta-banner-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 24px;
+  letter-spacing: 1.5px;
+  color: var(--white);
+  margin-bottom: 8px;
+}
+
+.cta-banner-sub {
+  font-size: 13px;
+  color: var(--white-dim);
+  line-height: 1.6;
+  margin-bottom: 18px;
+}
+
+.cta-banner-btn {
+  display: inline-block;
+  background: var(--gradient);
+  color: var(--black);
+  border: none;
+  border-radius: 10px;
+  padding: 14px 28px;
+  font-size: 15px;
+  font-weight: 700;
+  font-family: 'DM Sans', sans-serif;
+  cursor: pointer;
+  text-decoration: none;
+  transition: opacity 0.2s;
+}
+
+.cta-banner-btn:hover { opacity: 0.9; }
+
+.cta-features {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin: 16px 0;
+  text-align: left;
+}
+
+.cta-feature {
+  font-size: 12px;
+  color: var(--white-dim);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.cta-feature::before {
+  content: '✓';
+  color: var(--green);
+  font-weight: 700;
+  font-size: 13px;
+}
+
+/* ── HOW IT WORKS ── */
+.how-section {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 0 24px 80px;
+}
+
+.section-label {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--orange);
+  margin-bottom: 12px;
+}
+
+.section-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 36px;
+  letter-spacing: 2px;
+  color: var(--white);
+  margin-bottom: 32px;
+}
+
+.steps {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 16px;
+}
+
+.step {
+  background: var(--black-2);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 24px 20px;
+}
+
+.step-num {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 40px;
+  line-height: 1;
+  background: var(--gradient-h);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 12px;
+}
+
+.step-title {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--white);
+  margin-bottom: 6px;
+}
+
+.step-desc {
+  font-size: 13px;
+  color: var(--white-dim);
+  line-height: 1.5;
+}
+
+/* ── FOOTER ── */
+footer {
+  border-top: 1px solid var(--border);
+  padding: 32px 24px;
+  text-align: center;
+}
+
+.footer-logo {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 20px;
+  letter-spacing: 3px;
+  background: var(--gradient-h);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 8px;
+}
+
+.footer-sub {
+  font-size: 12px;
+  color: var(--white-dimmer);
+}
+
+.footer-link {
+  color: var(--orange);
+  text-decoration: none;
+}
+
+/* ── ERROR ── */
+.error-wrap {
+  display: none;
+  padding: 0 28px 28px;
+}
+
+.error-wrap.visible { display: block; }
+
+.error-box {
+  background: rgba(239,68,68,0.08);
+  border: 1px solid rgba(239,68,68,0.2);
+  border-radius: 12px;
+  padding: 16px 20px;
+  font-size: 14px;
+  color: #ef4444;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="https://www.speedshelf.cloud" class="nav-logo">
+    <div class="nav-logo-icon">S</div>
+    <div class="nav-logo-name">SpeedShelf</div>
+  </a>
+  <a href="https://app.speedshelf.cloud" class="nav-cta">Start Free Trial</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-badge">⚡ Free Tool — No Signup Required</div>
+  <h1 class="hero-title">
+    AI Invoice<br><span>Scanner</span>
+  </h1>
+  <p class="hero-sub">
+    Upload any delivery invoice or receipt. Our AI instantly extracts every item, quantity and price.
+  </p>
+  <p class="hero-note">
+    <strong>100% free.</strong> No account needed. Works with any supplier invoice.
+  </p>
+</section>
+
+<!-- SCANNER -->
+<div class="scanner-wrap">
+  <div class="scanner-card">
+
+    <div class="scanner-card-header">
+      <div class="scanner-icon">🧾</div>
+      <div>
+        <div class="scanner-card-title">Scan Your Invoice</div>
+        <div class="scanner-card-sub">Supports printed, handwritten, and digital invoices</div>
+      </div>
+    </div>
+
+    <!-- DROP ZONE -->
+    <div class="drop-zone" id="drop-zone">
+      <input type="file" id="file-input" accept="image/*,.pdf" capture="environment">
+      <span class="drop-icon">📸</span>
+      <div class="drop-title">Drop your invoice here</div>
+      <div class="drop-sub">or tap to take a photo / choose a file</div>
+      <div class="drop-formats">
+        <span class="format-tag">JPG</span>
+        <span class="format-tag">PNG</span>
+        <span class="format-tag">HEIC</span>
+        <span class="format-tag">PDF</span>
+        <span class="format-tag">WEBP</span>
+      </div>
+    </div>
+
+    <!-- PREVIEW -->
+    <div class="preview-wrap" id="preview-wrap">
+      <img id="preview-img" class="preview-img" alt="Invoice preview">
+      <div class="preview-actions">
+        <button class="btn-scan" id="scan-btn" onclick="scanInvoice()">⚡ Extract Items</button>
+        <button class="btn-clear" onclick="clearAll()">✕</button>
+      </div>
+    </div>
+
+    <!-- LOADING -->
+    <div class="loading-wrap" id="loading-wrap">
+      <div class="loading-spinner"></div>
+      <div class="loading-text">Reading your invoice...</div>
+      <div class="loading-sub">Our AI is extracting every item and price</div>
+    </div>
+
+    <!-- ERROR -->
+    <div class="error-wrap" id="error-wrap">
+      <div class="error-box">
+        ⚠️ <span id="error-text">Could not read invoice. Please try a clearer photo.</span>
+      </div>
+      <button class="btn-try-again" style="margin-top:12px" onclick="clearAll()">Try again</button>
+    </div>
+
+    <!-- RESULTS -->
+    <div class="results-wrap" id="results-wrap">
+      <div class="results-header">
+        <div>
+          <div class="results-vendor" id="results-vendor">Invoice Processed</div>
+          <div class="results-meta" id="results-meta"></div>
+        </div>
+        <div class="results-badge">✓ Extracted</div>
+      </div>
+
+      <div class="results-table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Description</th>
+              <th>Qty</th>
+              <th>Unit Price</th>
+              <th>Total</th>
+            </tr>
+          </thead>
+          <tbody id="results-tbody"></tbody>
+        </table>
+      </div>
+
+      <div class="results-total" id="results-total" style="display:none">
+        <div class="results-total-label">Invoice Total</div>
+        <div class="results-total-value" id="results-total-value"></div>
+      </div>
+
+      <button class="btn-try-again" onclick="clearAll()">Scan another invoice</button>
+
+      <!-- CTA -->
+      <div class="cta-banner">
+        <span class="cta-banner-emoji">⚡</span>
+        <div class="cta-banner-title">Want This To Update Your Stock Automatically?</div>
+        <div class="cta-banner-sub">
+          SpeedShelf connects your invoices directly to your live inventory.<br>
+          Scan, and your stock updates instantly — no typing, no spreadsheets.
+        </div>
+        <div class="cta-features">
+          <div class="cta-feature">Invoice scanning updates stock automatically</div>
+          <div class="cta-feature">Text or voice note updates — as easy as messaging</div>
+          <div class="cta-feature">Live dashboard + email reports</div>
+          <div class="cta-feature">Works for salons, bars, trades, coffee shops</div>
+          <div class="cta-feature">14-day free trial — no card required</div>
+        </div>
+        <a href="https://app.speedshelf.cloud" class="cta-banner-btn">Start Free Trial — £40/month after trial ⚡</a>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- HOW IT WORKS -->
+<section class="how-section">
+  <div class="section-label">How It Works</div>
+  <div class="section-title">Three Steps. Done.</div>
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">01</div>
+      <div class="step-title">Upload Invoice</div>
+      <div class="step-desc">Take a photo or upload any delivery invoice — printed, handwritten, or digital.</div>
+    </div>
+    <div class="step">
+      <div class="step-num">02</div>
+      <div class="step-title">AI Reads It</div>
+      <div class="step-desc">Our AI extracts every item, quantity, and price in seconds.</div>
+    </div>
+    <div class="step">
+      <div class="step-num">03</div>
+      <div class="step-title">Use the Data</div>
+      <div class="step-desc">Copy the results, or sign up for SpeedShelf to update your stock automatically.</div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">SpeedShelf</div>
+  <div class="footer-sub">
+    AI-powered stock management for independent businesses.<br>
+    <a href="https://www.speedshelf.cloud" class="footer-link">speedshelf.cloud</a>
+  </div>
+</footer>
+
+<script>
+// ── CONFIG ── replace with your actual API Gateway URL
+const SCANNER_API = 'https://3x0djr0hg7.execute-api.eu-west-2.amazonaws.com/prod/scan';
+
+let currentFile = null;
+
+// ── FILE INPUT ──
+const fileInput = document.getElementById('file-input');
+const dropZone  = document.getElementById('drop-zone');
+
+fileInput.addEventListener('change', (e) => {
+  if (e.target.files[0]) handleFile(e.target.files[0]);
+});
+
+// Drag and drop
+dropZone.addEventListener('dragover', (e) => {
+  e.preventDefault();
+  dropZone.classList.add('drag-over');
+});
+dropZone.addEventListener('dragleave', () => dropZone.classList.remove('drag-over'));
+dropZone.addEventListener('drop', (e) => {
+  e.preventDefault();
+  dropZone.classList.remove('drag-over');
+  if (e.dataTransfer.files[0]) handleFile(e.dataTransfer.files[0]);
+});
+
+function handleFile(file) {
+  currentFile = file;
+  const reader = new FileReader();
+  reader.onload = (e) => {
+    document.getElementById('preview-img').src = e.target.result;
+    show('preview-wrap');
+    hide('drop-zone');
+    hide('results-wrap');
+    hide('error-wrap');
+    hide('loading-wrap');
+  };
+  reader.readAsDataURL(file);
+}
+
+// ── SCAN ──
+async function scanInvoice() {
+  if (!currentFile) return;
+
+  const btn = document.getElementById('scan-btn');
+  btn.disabled = true;
+  btn.textContent = 'Scanning...';
+
+  hide('preview-wrap');
+  show('loading-wrap');
+  hide('error-wrap');
+  hide('results-wrap');
+
+  try {
+    // Convert to base64
+    const base64 = await toBase64(currentFile);
+    const mimeType = currentFile.type || 'image/jpeg';
+
+    const res = await fetch(SCANNER_API, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ image: base64, mime_type: mimeType })
+    });
+
+    const data = await res.json();
+
+    if (data.error || !data.items || data.items.length === 0) {
+      showError(data.error || 'No items found. Try a clearer photo.');
+      return;
+    }
+
+    renderResults(data);
+
+  } catch (e) {
+    showError('Could not connect. Please check your internet and try again.');
+  } finally {
+    btn.disabled = false;
+    btn.textContent = '⚡ Extract Items';
+  }
+}
+
+function toBase64(file) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => resolve(reader.result.split(',')[1]);
+    reader.onerror = reject;
+    reader.readAsDataURL(file);
+  });
+}
+
+// ── RENDER RESULTS ──
+function renderResults(data) {
+  hide('loading-wrap');
+
+  // Vendor + date
+  const vendor = data.vendor || 'Invoice';
+  document.getElementById('results-vendor').textContent = vendor;
+
+  const meta = [];
+  if (data.invoice_date) meta.push(data.invoice_date);
+  meta.push(`${data.items.length} item${data.items.length !== 1 ? 's' : ''} found`);
+  document.getElementById('results-meta').textContent = meta.join(' · ');
+
+  // Currency symbol
+  const currencyMap = { GBP: '£', USD: '$', EUR: '€' };
+  const symbol = currencyMap[data.currency] || '£';
+
+  // Table rows
+  const tbody = document.getElementById('results-tbody');
+  tbody.innerHTML = '';
+
+  data.items.forEach(item => {
+    const tr = document.createElement('tr');
+    const unitPrice = item.unit_price != null ? `${symbol}${parseFloat(item.unit_price).toFixed(2)}` : '—';
+    const lineTotal = item.line_total  != null ? `${symbol}${parseFloat(item.line_total).toFixed(2)}` : '—';
+    tr.innerHTML = `
+      <td class="td-desc">${escHtml(item.description)}</td>
+      <td class="td-qty">${item.quantity} ${escHtml(item.unit || 'units')}</td>
+      <td>${unitPrice}</td>
+      <td>${lineTotal}</td>
+    `;
+    tbody.appendChild(tr);
+  });
+
+  // Total
+  if (data.subtotal != null) {
+    document.getElementById('results-total').style.display = 'flex';
+    document.getElementById('results-total-value').textContent = `${symbol}${parseFloat(data.subtotal).toFixed(2)}`;
+  } else {
+    document.getElementById('results-total').style.display = 'none';
+  }
+
+  show('results-wrap');
+}
+
+// ── HELPERS ──
+function showError(msg) {
+  hide('loading-wrap');
+  show('preview-wrap');
+  document.getElementById('error-text').textContent = msg;
+  show('error-wrap');
+}
+
+function clearAll() {
+  currentFile = null;
+  fileInput.value = '';
+  document.getElementById('preview-img').src = '';
+  show('drop-zone');
+  hide('preview-wrap');
+  hide('loading-wrap');
+  hide('results-wrap');
+  hide('error-wrap');
+}
+
+function show(id) { document.getElementById(id).classList.add('visible'); }
+function hide(id) { document.getElementById(id).classList.remove('visible'); }
+
+function escHtml(str) {
+  return String(str)
+    .replace(/&/g,'&amp;')
+    .replace(/</g,'&lt;')
+    .replace(/>/g,'&gt;')
+    .replace(/"/g,'&quot;');
+}
+</script>
+</body>
+</html>
