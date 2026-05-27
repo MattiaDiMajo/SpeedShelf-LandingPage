@@ -59,10 +59,10 @@ nav {
 }
 .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
 .nav-logo-icon {
-  width: 34px; height: 34px;
-  background: var(--gradient); border-radius: 8px;
-  display: flex; align-items: center; justify-content: center;
-  font-family: 'Bebas Neue', sans-serif; font-size: 18px; color: var(--black);
+  width: 34px;
+  height: 34px;
+  border-radius: 8px;
+  object-fit: contain;
 }
 .nav-logo-name {
   font-family: 'DM Sans', sans-serif; font-size: 16px; font-weight: 500;
@@ -320,7 +320,7 @@ footer {
 
 <nav>
   <a href="https://www.speedshelf.cloud" class="nav-logo">
-    <div class="nav-logo-icon">S</div>
+    <img src="speedshelf-logo.png" alt="SpeedShelf" class="nav-logo-icon">
     <div class="nav-logo-name">SpeedShelf</div>
   </a>
   <a href="https://app.speedshelf.cloud" class="nav-cta" onclick="gtag('event','trial_cta_click',{event_category:'nav',event_label:'template'})">Start Free Trial</a>
