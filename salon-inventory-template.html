@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-YSPV1PETDG"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-YSPV1PETDG');
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Free hair salon inventory spreadsheet template generator. Choose your colour brands, get a pre-populated CSV ready to use in Excel or Google Sheets. No signup required.">
+<meta name="keywords" content="free hair salon inventory spreadsheet template, salon colour stock template, salon inventory csv, hair salon stock management spreadsheet">
+<title>Free Hair Salon Inventory Template Generator — SpeedShelf</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --grad-start: #F5B731;
+  --grad-mid:   #F26419;
+  --grad-end:   #E84D1A;
+  --gradient:   linear-gradient(135deg, var(--grad-start), var(--grad-mid), var(--grad-end));
+  --gradient-h: linear-gradient(90deg, var(--grad-start), var(--grad-mid), var(--grad-end));
+  --orange:     #F26419;
+  --black:      #0A0A0A;
+  --black-2:    #111111;
+  --black-3:    #1A1A1A;
+  --white:      #F5F5F0;
+  --white-dim:  rgba(245,245,240,0.55);
+  --white-dimmer: rgba(245,245,240,0.2);
+  --white-faint:  rgba(245,245,240,0.06);
+  --border:     rgba(245,245,240,0.08);
+  --green:      #4ADE80;
+  --red:        #ef4444;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--black);
+  color: var(--white);
+  font-family: 'DM Sans', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+}
+
+/* NAV */
+nav {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 18px 32px;
+  border-bottom: 1px solid var(--border);
+  position: sticky; top: 0;
+  background: rgba(10,10,10,0.92);
+  backdrop-filter: blur(12px);
+  z-index: 100;
+}
+.nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+.nav-logo-icon {
+  width: 34px; height: 34px;
+  background: var(--gradient); border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Bebas Neue', sans-serif; font-size: 18px; color: var(--black);
+}
+.nav-logo-name {
+  font-family: 'DM Sans', sans-serif; font-size: 16px; font-weight: 500;
+  letter-spacing: 0.5px; color: var(--white);
+}
+.nav-cta {
+  background: var(--gradient); color: var(--black); border: none;
+  border-radius: 8px; padding: 9px 18px; font-size: 13px; font-weight: 700;
+  font-family: 'DM Sans', sans-serif; cursor: pointer; text-decoration: none;
+}
+
+/* HERO */
+.hero {
+  text-align: center; padding: 72px 24px 52px;
+  position: relative; overflow: hidden;
+}
+.hero::before {
+  content: ''; position: absolute; top: -80px; left: 50%;
+  transform: translateX(-50%); width: 700px; height: 500px;
+  background: radial-gradient(circle, rgba(245,183,49,0.07) 0%, rgba(242,100,25,0.04) 40%, transparent 70%);
+  pointer-events: none;
+}
+.hero-badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: rgba(242,100,25,0.1); border: 1px solid rgba(242,100,25,0.25);
+  border-radius: 100px; padding: 5px 14px; font-size: 11px; font-weight: 600;
+  color: var(--orange); letter-spacing: 0.8px; text-transform: uppercase; margin-bottom: 24px;
+}
+.hero-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(44px, 7vw, 80px);
+  letter-spacing: 2px; line-height: 0.95; margin-bottom: 20px;
+}
+.hero-title span {
+  background: var(--gradient-h);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+}
+.hero-sub {
+  font-size: clamp(15px, 2vw, 18px); color: var(--white-dim);
+  max-width: 540px; margin: 0 auto 14px; line-height: 1.65;
+}
+.hero-note { font-size: 12px; color: var(--white-dimmer); }
+.hero-note strong { color: var(--green); }
+
+/* GENERATOR */
+.generator-wrap { max-width: 760px; margin: 0 auto; padding: 0 20px 80px; }
+
+.step-card {
+  background: var(--black-2); border: 1px solid var(--border);
+  border-radius: 16px; overflow: hidden; margin-bottom: 16px;
+}
+.step-header {
+  display: flex; align-items: center; gap: 14px;
+  padding: 20px 24px; border-bottom: 1px solid var(--border);
+}
+.step-num {
+  width: 32px; height: 32px; border-radius: 8px;
+  background: var(--gradient); display: flex; align-items: center; justify-content: center;
+  font-family: 'Bebas Neue', sans-serif; font-size: 18px; color: var(--black); flex-shrink: 0;
+}
+.step-title { font-family: 'Bebas Neue', sans-serif; font-size: 18px; letter-spacing: 1.5px; }
+.step-sub { font-size: 12px; color: var(--white-dimmer); margin-top: 2px; }
+.step-body { padding: 20px 24px; }
+
+/* BRAND GRID */
+.brand-grid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 10px;
+}
+.brand-chip {
+  display: flex; align-items: center; gap: 8px;
+  background: var(--white-faint); border: 1px solid var(--border);
+  border-radius: 10px; padding: 10px 14px; cursor: pointer;
+  transition: all 0.18s; user-select: none;
+}
+.brand-chip:hover { border-color: rgba(242,100,25,0.4); background: rgba(242,100,25,0.05); }
+.brand-chip.selected {
+  border-color: var(--orange); background: rgba(242,100,25,0.1);
+}
+.brand-chip-check {
+  width: 16px; height: 16px; border-radius: 4px;
+  border: 1.5px solid var(--border); flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  transition: all 0.15s;
+}
+.brand-chip.selected .brand-chip-check {
+  background: var(--orange); border-color: var(--orange);
+}
+.brand-chip-check::after {
+  content: ''; display: none;
+  width: 9px; height: 5px;
+  border-left: 2px solid var(--black); border-bottom: 2px solid var(--black);
+  transform: rotate(-45deg) translateY(-1px);
+}
+.brand-chip.selected .brand-chip-check::after { display: block; }
+.brand-chip-name { font-size: 13px; font-weight: 500; }
+
+/* CATEGORIES */
+.category-grid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 10px;
+}
+.cat-chip {
+  display: flex; align-items: center; gap: 8px;
+  background: var(--white-faint); border: 1px solid var(--border);
+  border-radius: 10px; padding: 10px 14px; cursor: pointer;
+  transition: all 0.18s; user-select: none;
+}
+.cat-chip:hover { border-color: rgba(242,100,25,0.4); background: rgba(242,100,25,0.05); }
+.cat-chip.selected { border-color: var(--orange); background: rgba(242,100,25,0.1); }
+.cat-chip-check {
+  width: 16px; height: 16px; border-radius: 4px;
+  border: 1.5px solid var(--border); flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center; transition: all 0.15s;
+}
+.cat-chip.selected .cat-chip-check { background: var(--orange); border-color: var(--orange); }
+.cat-chip-check::after {
+  content: ''; display: none; width: 9px; height: 5px;
+  border-left: 2px solid var(--black); border-bottom: 2px solid var(--black);
+  transform: rotate(-45deg) translateY(-1px);
+}
+.cat-chip.selected .cat-chip-check::after { display: block; }
+.cat-chip-name { font-size: 13px; font-weight: 500; }
+
+/* SALON NAME INPUT */
+.input-row { display: flex; gap: 10px; align-items: center; }
+.text-input {
+  flex: 1; background: var(--black-3); border: 1px solid var(--border);
+  border-radius: 10px; padding: 12px 16px; font-size: 14px;
+  color: var(--white); font-family: 'DM Sans', sans-serif; outline: none;
+  transition: border-color 0.2s;
+}
+.text-input:focus { border-color: var(--orange); }
+.text-input::placeholder { color: var(--white-dimmer); }
+
+/* PREVIEW */
+.preview-card {
+  background: var(--black-3); border: 1px solid var(--border);
+  border-radius: 12px; overflow: hidden; margin-top: 8px;
+}
+.preview-header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 12px 16px; border-bottom: 1px solid var(--border);
+  font-size: 11px; font-weight: 600; letter-spacing: 1px;
+  text-transform: uppercase; color: var(--white-dimmer);
+}
+.preview-rows { max-height: 240px; overflow-y: auto; }
+.preview-row {
+  display: grid; grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+  padding: 9px 16px; border-bottom: 1px solid var(--border); font-size: 12px;
+}
+.preview-row:last-child { border-bottom: none; }
+.preview-row.header-row {
+  background: var(--black-2); font-size: 10px; font-weight: 600;
+  letter-spacing: 0.8px; text-transform: uppercase; color: var(--white-dimmer);
+  position: sticky; top: 0;
+}
+.preview-row span:first-child { color: var(--white); font-weight: 500; }
+.preview-row span { color: var(--white-dim); }
+
+.row-count {
+  font-size: 11px; color: var(--white-dimmer); padding: 8px 16px;
+  border-top: 1px solid var(--border); text-align: right;
+}
+
+/* CTA SECTION */
+.cta-section { margin-top: 8px; }
+
+.btn-download {
+  width: 100%; background: var(--gradient); color: var(--black);
+  border: none; border-radius: 12px; padding: 16px;
+  font-size: 16px; font-weight: 700; font-family: 'DM Sans', sans-serif;
+  cursor: pointer; transition: opacity 0.2s; display: flex;
+  align-items: center; justify-content: center; gap: 8px;
+}
+.btn-download:hover { opacity: 0.9; }
+.btn-download:disabled { opacity: 0.4; cursor: not-allowed; }
+
+.download-note {
+  font-size: 11px; color: var(--white-dimmer); text-align: center; margin-top: 10px;
+}
+
+/* UPGRADE BANNER */
+.upgrade-banner {
+  background: linear-gradient(135deg, rgba(245,183,49,0.07), rgba(242,100,25,0.07));
+  border: 1px solid rgba(242,100,25,0.18);
+  border-radius: 14px; padding: 28px 24px; text-align: center; margin-top: 32px;
+}
+.upgrade-banner-title {
+  font-family: 'Bebas Neue', sans-serif; font-size: 26px; letter-spacing: 1.5px;
+  color: var(--white); margin-bottom: 10px;
+}
+.upgrade-banner-sub {
+  font-size: 14px; color: var(--white-dim); line-height: 1.6; margin-bottom: 20px;
+  max-width: 480px; margin-left: auto; margin-right: auto;
+}
+.upgrade-features {
+  display: flex; flex-direction: column; gap: 6px;
+  text-align: left; max-width: 360px; margin: 0 auto 20px;
+}
+.upgrade-feature {
+  font-size: 13px; color: var(--white-dim);
+  display: flex; align-items: center; gap: 8px;
+}
+.upgrade-feature::before { content: '✓'; color: var(--green); font-weight: 700; }
+.upgrade-btn {
+  display: inline-block; background: var(--gradient); color: var(--black);
+  border: none; border-radius: 10px; padding: 14px 32px;
+  font-size: 15px; font-weight: 700; font-family: 'DM Sans', sans-serif;
+  cursor: pointer; text-decoration: none; transition: opacity 0.2s;
+}
+.upgrade-btn:hover { opacity: 0.9; }
+
+/* HOW IT WORKS */
+.how-section { max-width: 760px; margin: 0 auto; padding: 0 20px 80px; }
+.section-label {
+  font-size: 11px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase;
+  color: var(--orange); margin-bottom: 10px;
+}
+.section-title {
+  font-family: 'Bebas Neue', sans-serif; font-size: 34px; letter-spacing: 2px;
+  color: var(--white); margin-bottom: 28px;
+}
+.steps-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 14px; }
+.step-item {
+  background: var(--black-2); border: 1px solid var(--border);
+  border-radius: 14px; padding: 22px 18px;
+}
+.step-item-num {
+  font-family: 'Bebas Neue', sans-serif; font-size: 38px; line-height: 1;
+  background: var(--gradient-h); -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 10px;
+}
+.step-item-title { font-size: 15px; font-weight: 600; margin-bottom: 6px; }
+.step-item-desc { font-size: 13px; color: var(--white-dim); line-height: 1.5; }
+
+/* FOOTER */
+footer {
+  border-top: 1px solid var(--border); padding: 28px 24px; text-align: center;
+}
+.footer-logo {
+  font-family: 'Bebas Neue', sans-serif; font-size: 18px; letter-spacing: 3px;
+  background: var(--gradient-h); -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 6px;
+}
+.footer-sub { font-size: 12px; color: var(--white-dimmer); }
+.footer-link { color: var(--orange); text-decoration: none; }
+
+/* EMPTY STATE */
+.empty-state {
+  padding: 32px 16px; text-align: center;
+  color: var(--white-dimmer); font-size: 13px;
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="https://www.speedshelf.cloud" class="nav-logo">
+    <div class="nav-logo-icon">S</div>
+    <div class="nav-logo-name">SpeedShelf</div>
+  </a>
+  <a href="https://app.speedshelf.cloud" class="nav-cta" onclick="gtag('event','trial_cta_click',{event_category:'nav',event_label:'template'})">Start Free Trial</a>
+</nav>
+
+<section class="hero">
+  <div class="hero-badge">⚡ Free Tool — No Signup Required</div>
+  <h1 class="hero-title">
+    Free Salon<br><span>Inventory Template</span>
+  </h1>
+  <p class="hero-sub">
+    Choose your colour brands, pick your categories, and download a pre-populated spreadsheet ready to use in Excel or Google Sheets.
+  </p>
+  <p class="hero-note"><strong>100% free.</strong> No account needed. Download instantly.</p>
+</section>
+
+<div class="generator-wrap">
+
+  <!-- STEP 1: SALON NAME -->
+  <div class="step-card">
+    <div class="step-header">
+      <div class="step-num">1</div>
+      <div>
+        <div class="step-title">Your Salon Name</div>
+        <div class="step-sub">Personalises the spreadsheet header</div>
+      </div>
+    </div>
+    <div class="step-body">
+      <div class="input-row">
+        <input type="text" class="text-input" id="salon-name" placeholder="e.g. Morresi Hairstylist" maxlength="60">
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 2: BRANDS -->
+  <div class="step-card">
+    <div class="step-header">
+      <div class="step-num">2</div>
+      <div>
+        <div class="step-title">Colour Brands You Stock</div>
+        <div class="step-sub">Pre-populates your template with common shades</div>
+      </div>
+    </div>
+    <div class="step-body">
+      <div class="brand-grid" id="brand-grid"></div>
+    </div>
+  </div>
+
+  <!-- STEP 3: CATEGORIES -->
+  <div class="step-card">
+    <div class="step-header">
+      <div class="step-num">3</div>
+      <div>
+        <div class="step-title">Product Categories</div>
+        <div class="step-sub">Adds the right product types for your salon</div>
+      </div>
+    </div>
+    <div class="step-body">
+      <div class="category-grid" id="cat-grid"></div>
+    </div>
+  </div>
+
+  <!-- STEP 4: PREVIEW + DOWNLOAD -->
+  <div class="step-card">
+    <div class="step-header">
+      <div class="step-num">4</div>
+      <div>
+        <div class="step-title">Preview & Download</div>
+        <div class="step-sub">Your personalised template — ready in seconds</div>
+      </div>
+    </div>
+    <div class="step-body">
+      <div class="preview-card">
+        <div class="preview-header">
+          <span>Template Preview</span>
+          <span id="preview-count">0 items</span>
+        </div>
+        <div class="preview-rows" id="preview-rows">
+          <div class="empty-state">Select brands above to preview your template</div>
+        </div>
+      </div>
+
+      <div class="cta-section" style="margin-top:20px">
+        <button class="btn-download" id="download-btn" onclick="downloadCSV()" disabled>
+          ⬇ Download Free Spreadsheet (.csv)
+        </button>
+        <p class="download-note">Opens in Excel, Google Sheets, or Numbers. No account needed.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- UPGRADE BANNER -->
+  <div class="upgrade-banner">
+    <div style="font-size:28px;margin-bottom:12px">⚡</div>
+    <div class="upgrade-banner-title">Tired of Updating This Manually?</div>
+    <div class="upgrade-banner-sub">
+      SpeedShelf updates your stock automatically. Your team texts a product name, takes a photo of an invoice, or leaves a voice note — the inventory updates itself.
+    </div>
+    <div class="upgrade-features">
+      <div class="upgrade-feature">Stock updates via text, voice, or invoice photo</div>
+      <div class="upgrade-feature">Live dashboard — see everything in real time</div>
+      <div class="upgrade-feature">Weekly usage report + reorder CSV by email</div>
+      <div class="upgrade-feature">14-day free trial — no card required</div>
+    </div>
+    <a href="https://app.speedshelf.cloud" class="upgrade-btn" onclick="gtag('event','trial_cta_click',{event_category:'banner',event_label:'template'})">Start Free Trial ⚡</a>
+  </div>
+
+</div>
+
+<!-- HOW IT WORKS -->
+<section class="how-section">
+  <div class="section-label">How It Works</div>
+  <div class="section-title">Three Steps. Done.</div>
+  <div class="steps-grid">
+    <div class="step-item">
+      <div class="step-item-num">01</div>
+      <div class="step-item-title">Choose Your Brands</div>
+      <div class="step-item-desc">Select the colour brands you stock — L'Oréal, Wella, Schwarzkopf, and more.</div>
+    </div>
+    <div class="step-item">
+      <div class="step-item-num">02</div>
+      <div class="step-item-title">Pick Categories</div>
+      <div class="step-item-desc">Add developers, tools, retail, utilities — whatever your salon needs to track.</div>
+    </div>
+    <div class="step-item">
+      <div class="step-item-num">03</div>
+      <div class="step-item-title">Download & Use</div>
+      <div class="step-item-desc">Get your CSV instantly. Open in Excel or Google Sheets and start counting.</div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-logo">SpeedShelf</div>
+  <div class="footer-sub">
+    AI-powered stock management for independent businesses.<br>
+    <a href="https://www.speedshelf.cloud" class="footer-link">speedshelf.cloud</a>
+  </div>
+</footer>
+
+<script>
+// ── DATA ──
+const BRANDS = [
+  { id: 'loreal',       name: "L'Oréal Pro",   items: [
+    ['MAJIREL_5_0','Majirel 5.0','tubes','Colour'],
+    ['MAJIREL_6_0','Majirel 6.0','tubes','Colour'],
+    ['MAJIREL_7_0','Majirel 7.0','tubes','Colour'],
+    ['MAJIREL_8_0','Majirel 8.0','tubes','Colour'],
+    ['MAJIREL_4_0','Majirel 4.0','tubes','Colour'],
+    ['MAJIREL_3_0','Majirel 3.0','tubes','Colour'],
+    ['DIA_COLOR_5_0','Dia Color 5.0','tubes','Colour'],
+    ['DIA_COLOR_6_0','Dia Color 6.0','tubes','Colour'],
+    ['DIA_COLOR_7_0','Dia Color 7.0','tubes','Colour'],
+    ['DIA_LIGHT_9_1','Dia Light 9.1','tubes','Colour'],
+    ['DIA_LIGHT_10_1','Dia Light 10.1','tubes','Colour'],
+    ['INOA_5_0','INOA 5.0','tubes','Colour'],
+    ['INOA_6_0','INOA 6.0','tubes','Colour'],
+    ['INOA_7_0','INOA 7.0','tubes','Colour'],
+    ['LOREAL_OXYDANT_20V','L\'Oréal Oxydant 20V','bottles','Developer'],
+    ['LOREAL_OXYDANT_30V','L\'Oréal Oxydant 30V','bottles','Developer'],
+  ]},
+  { id: 'wella',        name: 'Wella',          items: [
+    ['WELLA_5_0','Wella 5/0','tubes','Colour'],
+    ['WELLA_6_0','Wella 6/0','tubes','Colour'],
+    ['WELLA_7_0','Wella 7/0','tubes','Colour'],
+    ['WELLA_8_0','Wella 8/0','tubes','Colour'],
+    ['WELLA_7_1','Wella 7/1','tubes','Colour'],
+    ['WELLA_9_1','Wella 9/1','tubes','Colour'],
+    ['WELLA_BLONDOR','Wella Blondor','units','Bleach'],
+    ['WELLA_DEV_20V','Wella Developer 20V','bottles','Developer'],
+    ['WELLA_DEV_30V','Wella Developer 30V','bottles','Developer'],
+  ]},
+  { id: 'schwarzkopf',  name: 'Schwarzkopf',    items: [
+    ['SK_IGORA_5_0','Igora Royal 5-0','tubes','Colour'],
+    ['SK_IGORA_6_0','Igora Royal 6-0','tubes','Colour'],
+    ['SK_IGORA_7_0','Igora Royal 7-0','tubes','Colour'],
+    ['SK_IGORA_8_0','Igora Royal 8-0','tubes','Colour'],
+    ['SK_BLONDME','BlondMe Premium','units','Bleach'],
+    ['SK_DEV_20V','Schwarzkopf Dev 20V','bottles','Developer'],
+    ['SK_DEV_30V','Schwarzkopf Dev 30V','bottles','Developer'],
+  ]},
+  { id: 'redken',       name: 'Redken',          items: [
+    ['REDKEN_SHADES_5N','Shades EQ 5N','units','Colour'],
+    ['REDKEN_SHADES_6N','Shades EQ 6N','units','Colour'],
+    ['REDKEN_SHADES_7N','Shades EQ 7N','units','Colour'],
+    ['REDKEN_CHROMATICS_5','Chromatics 5','tubes','Colour'],
+    ['REDKEN_CHROMATICS_6','Chromatics 6','tubes','Colour'],
+    ['REDKEN_COVER_FUSION','Cover Fusion 5NN','tubes','Colour'],
+    ['REDKEN_DEV_20V','Redken Developer 20V','bottles','Developer'],
+  ]},
+  { id: 'kerastase',    name: 'Kérastase',       items: [
+    ['KERASTASE_BAIN_COLOR','Bain Chroma Captive','bottles','Shampoo'],
+    ['KERASTASE_CHROMA','Chroma Absolu Masque','units','Treatment'],
+    ['KERASTASE_BLOND','Blond Absolu Masque','units','Treatment'],
+    ['KERASTASE_NECTAR','Nectar Thermique','bottles','Treatment'],
+  ]},
+  { id: 'olaplex',      name: 'Olaplex',         items: [
+    ['OLAPLEX_NO1','Olaplex No.1','bottles','Treatment'],
+    ['OLAPLEX_NO2','Olaplex No.2','bottles','Treatment'],
+    ['OLAPLEX_NO3','Olaplex No.3','bottles','Treatment'],
+    ['OLAPLEX_NO4','Olaplex No.4 Shampoo','bottles','Shampoo'],
+    ['OLAPLEX_NO5','Olaplex No.5 Conditioner','bottles','Conditioner'],
+  ]},
+  { id: 'joico',        name: 'Joico',            items: [
+    ['JOICO_LCO_5N','LumiShine 5N','tubes','Colour'],
+    ['JOICO_LCO_6N','LumiShine 6N','tubes','Colour'],
+    ['JOICO_VERO_5N','Vero K-PAK 5N','tubes','Colour'],
+    ['JOICO_DEV_20V','Joico Developer 20V','bottles','Developer'],
+  ]},
+  { id: 'goldwell',     name: 'Goldwell',         items: [
+    ['GOLDWELL_TOPCHIC_5N','Topchic 5N','tubes','Colour'],
+    ['GOLDWELL_TOPCHIC_6N','Topchic 6N','tubes','Colour'],
+    ['GOLDWELL_TOPCHIC_7N','Topchic 7N','tubes','Colour'],
+    ['GOLDWELL_DUALSENSES','Dualsenses Shampoo','bottles','Shampoo'],
+    ['GOLDWELL_DEV_20V','Goldwell Developer 20V','bottles','Developer'],
+  ]},
+];
+
+const EXTRA_CATEGORIES = [
+  { id: 'bleach',    name: '🪄 Bleach / Lightener', items: [
+    ['BLEACH_POWDER_500G','Bleach Powder 500g','units','Bleach'],
+    ['BLEACH_POWDER_1KG','Bleach Powder 1kg','units','Bleach'],
+    ['TONER_SILVER','Silver Toner','tubes','Colour'],
+    ['TONER_BLONDE','Blonde Toner','tubes','Colour'],
+  ]},
+  { id: 'developer', name: '🧪 Developer / Oxidant', items: [
+    ['DEV_6V','Developer 6V','bottles','Developer'],
+    ['DEV_9V','Developer 9V','bottles','Developer'],
+    ['DEV_12V','Developer 12V','bottles','Developer'],
+    ['DEV_40V','Developer 40V','bottles','Developer'],
+  ]},
+  { id: 'shampoo',   name: '🧴 Shampoo & Conditioner', items: [
+    ['SHAMPOO_COLOR','Colour Protect Shampoo','bottles','Shampoo'],
+    ['SHAMPOO_SILVER','Silver Shampoo','bottles','Shampoo'],
+    ['SHAMPOO_REPAIR','Repair Shampoo','bottles','Shampoo'],
+    ['CONDITIONER_COLOR','Colour Conditioner','bottles','Conditioner'],
+    ['CONDITIONER_REPAIR','Repair Conditioner','bottles','Conditioner'],
+  ]},
+  { id: 'tools',     name: '✂️ Tools & Equipment', items: [
+    ['FOIL_ROLL','Foil Roll','units','Tools'],
+    ['GLOVES_BOX','Gloves (Box)','units','Utilities'],
+    ['COLOUR_BRUSH','Colour Brush','units','Tools'],
+    ['MIXING_BOWL','Mixing Bowl','units','Tools'],
+    ['CLIPS_BAG','Sectioning Clips (Bag)','units','Tools'],
+  ]},
+  { id: 'retail',    name: '🛍️ Retail Products', items: [
+    ['RETAIL_SHAMPOO','Retail Shampoo','bottles','Retail'],
+    ['RETAIL_CONDITIONER','Retail Conditioner','bottles','Retail'],
+    ['RETAIL_MASK','Retail Hair Mask','units','Retail'],
+    ['RETAIL_SERUM','Retail Serum','units','Retail'],
+    ['RETAIL_SPRAY','Retail Styling Spray','bottles','Retail'],
+  ]},
+  { id: 'utilities', name: '🧹 Salon Utilities', items: [
+    ['TOWELS','Salon Towels','units','Utilities'],
+    ['CAPES','Client Capes','units','Utilities'],
+    ['COTTON_STRIPS','Cotton Neck Strips','units','Utilities'],
+    ['CLEANING_SPRAY','Cleaning Spray','bottles','Utilities'],
+    ['BIN_BAGS','Bin Bags','units','Utilities'],
+    ['COFFEE','Coffee','units','Utilities'],
+    ['MILK','Milk','units','Utilities'],
+  ]},
+];
+
+// ── STATE ──
+let selectedBrands = new Set();
+let selectedCats   = new Set();
+
+// ── INIT ──
+function init() {
+  const brandGrid = document.getElementById('brand-grid');
+  BRANDS.forEach(b => {
+    const chip = document.createElement('div');
+    chip.className = 'brand-chip';
+    chip.dataset.id = b.id;
+    chip.innerHTML = `<div class="brand-chip-check"></div><span class="brand-chip-name">${b.name}</span>`;
+    chip.addEventListener('click', () => toggleBrand(b.id, chip));
+    brandGrid.appendChild(chip);
+  });
+
+  const catGrid = document.getElementById('cat-grid');
+  EXTRA_CATEGORIES.forEach(c => {
+    const chip = document.createElement('div');
+    chip.className = 'cat-chip';
+    chip.dataset.id = c.id;
+    chip.innerHTML = `<div class="cat-chip-check"></div><span class="cat-chip-name">${c.name}</span>`;
+    chip.addEventListener('click', () => toggleCat(c.id, chip));
+    catGrid.appendChild(chip);
+  });
+
+  document.getElementById('salon-name').addEventListener('input', updatePreview);
+}
+
+function toggleBrand(id, chip) {
+  if (selectedBrands.has(id)) { selectedBrands.delete(id); chip.classList.remove('selected'); }
+  else { selectedBrands.add(id); chip.classList.add('selected'); }
+  updatePreview();
+}
+
+function toggleCat(id, chip) {
+  if (selectedCats.has(id)) { selectedCats.delete(id); chip.classList.remove('selected'); }
+  else { selectedCats.add(id); chip.classList.add('selected'); }
+  updatePreview();
+}
+
+// ── BUILD ROWS ──
+function buildRows() {
+  const rows = [];
+  BRANDS.filter(b => selectedBrands.has(b.id)).forEach(b => {
+    b.items.forEach(i => rows.push(i));
+  });
+  EXTRA_CATEGORIES.filter(c => selectedCats.has(c.id)).forEach(c => {
+    c.items.forEach(i => {
+      if (!rows.find(r => r[0] === i[0])) rows.push(i);
+    });
+  });
+  return rows;
+}
+
+// ── UPDATE PREVIEW ──
+function updatePreview() {
+  const rows = buildRows();
+  const container = document.getElementById('preview-rows');
+  const countEl   = document.getElementById('preview-count');
+  const btn        = document.getElementById('download-btn');
+
+  if (!rows.length) {
+    container.innerHTML = '<div class="empty-state">Select brands above to preview your template</div>';
+    countEl.textContent = '0 items';
+    btn.disabled = true;
+    return;
+  }
+
+  btn.disabled = false;
+  countEl.textContent = `${rows.length} items`;
+
+  const header = `<div class="preview-row header-row">
+    <span>Product Name</span><span>Current Stock</span>
+    <span>Unit</span><span>Category</span><span>Reorder Level</span>
+  </div>`;
+
+  const itemRows = rows.slice(0, 50).map(r => `
+    <div class="preview-row">
+      <span>${r[1]}</span>
+      <span>0</span>
+      <span>${r[2]}</span>
+      <span>${r[3]}</span>
+      <span>3</span>
+    </div>`).join('');
+
+  const more = rows.length > 50
+    ? `<div class="row-count">+ ${rows.length - 50} more rows in download</div>` : '';
+
+  container.innerHTML = header + itemRows + more;
+}
+
+// ── DOWNLOAD CSV ──
+function downloadCSV() {
+  gtag('event', 'download_template', {event_category: 'engagement', event_label: 'salon_inventory'});
+  const rows  = buildRows();
+  const salon = document.getElementById('salon-name').value.trim() || 'My Salon';
+  const date  = new Date().toLocaleDateString('en-GB', {day:'2-digit',month:'short',year:'numeric'});
+
+  const lines = [];
+
+  // Header info (rows that give context at the top of the file)
+  lines.push(`"${salon} — Inventory Spreadsheet","","","","",""`);
+  lines.push(`"Generated by SpeedShelf","speedshelf.cloud","","","",""`);
+  lines.push(`"Date","${date}","","","",""`);
+  lines.push(`"","","","","",""`);
+
+  // SpeedShelf CTA row — visible every time they open the file
+  lines.push(`"⚡ Updating this manually? SpeedShelf does it automatically → app.speedshelf.cloud","","","","",""`);
+  lines.push(`"","","","","",""`);
+
+  // Column headers
+  lines.push(`"Product Name","Current Stock","Unit","Category","Reorder Level","Notes"`);
+
+  // Data rows
+  rows.forEach(r => {
+    lines.push(`"${r[1]}","0","${r[2]}","${r[3]}","3",""`);
+  });
+
+  // Empty rows for manual additions
+  for (let i = 0; i < 20; i++) {
+    lines.push(`"","","","","",""`);
+  }
+
+  const csv  = lines.join('\n');
+  const blob = new Blob([csv], {type: 'text/csv;charset=utf-8;'});
+  const url  = URL.createObjectURL(blob);
+  const a    = document.createElement('a');
+  const safeName = salon.replace(/[^a-z0-9]/gi, '_').toLowerCase();
+  a.href     = url;
+  a.download = `${safeName}_inventory_template.csv`;
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
+init();
+</script>
+</body>
+</html>
