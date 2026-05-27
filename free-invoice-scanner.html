@@ -1,6 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-YSPV1PETDG"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-YSPV1PETDG');
+</script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="Free AI invoice scanner for small businesses. Upload any delivery invoice and instantly extract all items, quantities and prices. No signup required.">
@@ -671,7 +679,7 @@ footer {
     <img src="speedshelf-logo.png" alt="SpeedShelf" class="nav-logo-icon">
     <div class="nav-logo-name">SpeedShelf</div>
   </a>
-  <a href="https://app.speedshelf.cloud" class="nav-cta">Start Free Trial</a>
+  <a href="https://app.speedshelf.cloud" class="nav-cta" onclick="gtag('event','trial_cta_click',{event_category:'nav',event_label:'scanner'})">Start Free Trial</a>
 </nav>
 
 <!-- HERO -->
@@ -785,7 +793,7 @@ footer {
           <div class="cta-feature">Works for salons, bars, trades, coffee shops</div>
           <div class="cta-feature">14-day free trial — no card required</div>
         </div>
-        <a href="https://app.speedshelf.cloud" class="cta-banner-btn">Start Your Free Trial ⚡</a>
+        <a href="https://app.speedshelf.cloud" class="cta-banner-btn" onclick="gtag('event','trial_cta_click',{event_category:'banner',event_label:'scanner'})">Start Your Free Trial ⚡</a>
       </div>
     </div>
 
@@ -867,6 +875,7 @@ function handleFile(file) {
 // ── SCAN ──
 async function scanInvoice() {
   if (!currentFile) return;
+  gtag('event', 'scan_invoice', {event_category: 'engagement'});
 
   const btn = document.getElementById('scan-btn');
   btn.disabled = true;
